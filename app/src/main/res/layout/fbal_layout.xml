@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/head2" />
+
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@android:drawable/alert_light_frame"
+        android:hint="标题"
+        android:paddingLeft="20dp" />
+
+    <EditText
+        android:id="@+id/et_de"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@android:drawable/alert_light_frame"
+        android:gravity="top"
+        android:hint="方案简介"
+        android:padding="20dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+
+        android:id="@+id/et_msg"
+        android:background="@android:drawable/alert_light_frame"
+        android:gravity="top"
+        android:hint="扶贫方案内容"
+        android:padding="20dp" />
+
+    <Button
+        android:id="@+id/bt_save"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/bg_main_style"
+        android:text="确定"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+</LinearLayout>

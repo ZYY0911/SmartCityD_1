@@ -1,0 +1,20 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MyRatinStyle">
+
+
+        <item name="minHeight">4dp</item>
+        <item name="maxHeight">4dp</item>
+        <item name="minWidth">4dp</item>
+        <item name="maxWidth">4dp</item>
+        <item name="android:progressDrawable">@drawable/rating_bar</item>
+    </style>
+
+</resources>
