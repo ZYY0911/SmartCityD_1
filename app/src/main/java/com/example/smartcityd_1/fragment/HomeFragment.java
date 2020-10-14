@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.home_fragment, container, false);
     }
+    private boolean isLarge = false;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -83,6 +84,12 @@ public class HomeFragment extends Fragment {
         setVolley_Service();
         setVolley_Subject();
         setVolley_News();
+        if (getView().findViewById(R.id.large_layout) != null) {
+            isLarge = true;
+        } else {
+            isLarge = false;
+        }
+
     }
 
     List<NewsList> newsLists;
@@ -158,7 +165,7 @@ public class HomeFragment extends Fragment {
 
     private void setNewTypeLayout() {
         layoutNew.removeAllViews();
-        newTypes.add(0, "推荐");
+        //     newTypes.add(0, "推荐");
         Log.i("aaa", "setNewTypeLayout: " + strings.size());
         for (int i = 0; i < newTypes.size(); i++) {
             final TextView textView = new TextView(getActivity());
@@ -193,22 +200,22 @@ public class HomeFragment extends Fragment {
             textView.setLayoutParams(layoutParams);
             layoutNew.addView(textView);
         }
-        setLayoutType("推荐");
+        setLayoutType(newTypes.get(0));
     }
 
     private void setLayoutType(String type) {
         List<NewsList> newsLists1 = new ArrayList<>();
         for (int i = 0; i < newsLists.size(); i++) {
             NewsList newsList = newsLists.get(i);
-            if (type.equals("推荐")) {
-                if (getTj(Integer.parseInt(newsList.getNewsid()))) {
-                    newsLists1.add(newsList);
-                }
-            } else {
-                if (newsList.getNewsType().equals(type)) {
-                    newsLists1.add(newsList);
-                }
+//            if (type.equals("推荐")) {
+//                if (getTj(Integer.parseInt(newsList.getNewsid()))) {
+//                    newsLists1.add(newsList);
+//                }
+//            } else {
+            if (newsList.getNewsType().equals(type)) {
+                newsLists1.add(newsList);
             }
+//            }
         }
         newsLayout.removeAllViews();
         for (int i = 0; i < newsLists1.size(); i++) {
@@ -222,12 +229,6 @@ public class HomeFragment extends Fragment {
             holder.itemTitle = view.findViewById(R.id.item_title);
             holder.itemContext = view.findViewById(R.id.item_context);
             holder.itemMsg = view.findViewById(R.id.item_msg);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//
-                }
-            });
             VolleyImage volleyImage = new VolleyImage();
             volleyImage.setUrl(newsList.getPicture())
                     .setVolleyLoImage(new VolleyLoImage() {
@@ -257,7 +258,7 @@ public class HomeFragment extends Fragment {
                                     .setVolleyLo(new VolleyLo() {
                                         @Override
                                         public void onResponse(JSONObject jsonObject) {
-                                            holder.itemMsg.setText("总评：" + all + "\n发布日期：" + jsonObject.optJSONArray(Util.Rows).optJSONObject(0).optString("publicTime"));
+                                            holder.itemMsg.setText("总评：" + all + "   发布日期：" + jsonObject.optJSONArray(Util.Rows).optJSONObject(0).optString("publicTime"));
 
                                         }
 
@@ -355,7 +356,7 @@ public class HomeFragment extends Fragment {
                         serviceWeights = new Gson().fromJson(jsonObject.optJSONArray(Util.Rows).toString()
                                 , new TypeToken<List<ServiceWeight>>() {
                                 }.getType());
-                        HomeServiceAdapter adapter = new HomeServiceAdapter(getActivity(), serviceWeights);
+                        HomeServiceAdapter adapter = new HomeServiceAdapter(getActivity(), serviceWeights,isLarge);
                         girdView.setAdapter(adapter);
                         adapter.setOnClickItem(new OnClickItem() {
                             @Override
@@ -369,7 +370,7 @@ public class HomeFragment extends Fragment {
                                 } else {
                                     Intent intent = new Intent(getActivity(), UrlService.class);
                                     intent.putExtra("info", Integer.parseInt(serviceWeights.get(position).getId()));
-                                    intent.putExtra("name",name);
+                                    intent.putExtra("name", name);
                                     startActivity(intent);
                                 }
                             }

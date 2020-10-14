@@ -2,6 +2,7 @@ package com.example.smartcityd_1.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -65,6 +67,7 @@ public class NewsFragment_Fp extends Fragment {
         return inflater.inflate(R.layout.new_fragment, container, false);
     }
 
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -91,6 +94,34 @@ public class NewsFragment_Fp extends Fragment {
                         fpNews = new Gson().fromJson(jsonObject.optJSONArray(Util.Rows).toString()
                                 , new TypeToken<List<FpNews>>() {
                                 }.getType());
+                        List<FpNews> fpNews1 = new ArrayList<>();
+                        for (int i = fpNews.size() - 1; i >= 0; i--) {
+                            FpNews fpNew = fpNews.get(i);
+                            if (fpNew.getIsfront() != null) {
+                                if (fpNew.getIsfront().equals("1")) {
+                                    fpNews1.add(fpNew);
+                                    fpNews.remove(i);
+                                }
+                            }
+                        }
+                        Collections.sort(fpNews1, new Comparator<FpNews>() {
+                            @Override
+                            public int compare(FpNews o1, FpNews o2) {
+                                //2020-04-03 00:00:00
+                                Date date = null;
+                                Date date1 = null;
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                try {
+                                    date = format.parse(o1.getReporttime());
+                                    date1 = format.parse(o2.getReporttime());
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                return date1.compareTo(date);
+                            }
+                        });
+
                         Collections.sort(fpNews, new Comparator<FpNews>() {
                             @Override
                             public int compare(FpNews o1, FpNews o2) {
@@ -108,6 +139,9 @@ public class NewsFragment_Fp extends Fragment {
                                 return date1.compareTo(date);
                             }
                         });
+                        for (int i = fpNews1.size() - 1; i >= 0; i--) {
+                            fpNews.add(0, fpNews1.get(i));
+                        }
                         listView.setAdapter(new NewAdapter(getActivity(), fpNews));
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override

@@ -51,7 +51,7 @@ public class GhAdapter extends ArrayAdapter<DutByDempart> {
         //            "type": "普通门诊",
         //            "doctorId": "1"
         //        }
-        itemMsg.setText(dutByDempart.getTime() + "," + name);
+        itemMsg.setText(name + "\n" + dutByDempart.getTime());
         itemBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

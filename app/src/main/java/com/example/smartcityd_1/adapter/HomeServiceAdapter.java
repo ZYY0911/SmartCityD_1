@@ -34,9 +34,11 @@ import androidx.annotation.Nullable;
  * @Create by 张瀛煜 on 2020/10/11 at 20:37
  */
 public class HomeServiceAdapter extends ArrayAdapter<ServiceWeight> {
+    private boolean isLager = false;
 
-    public HomeServiceAdapter(@NonNull Context context, @NonNull List<ServiceWeight> objects) {
+    public HomeServiceAdapter(@NonNull Context context, @NonNull List<ServiceWeight> objects, boolean isLager) {
         super(context, 0, objects);
+        this.isLager = isLager;
     }
 
     private OnClickItem onClickItem;
@@ -47,7 +49,7 @@ public class HomeServiceAdapter extends ArrayAdapter<ServiceWeight> {
 
     @Override
     public int getCount() {
-        return 10;
+        return isLager ? 12 : 10;
     }
 
     @NonNull
@@ -64,7 +66,7 @@ public class HomeServiceAdapter extends ArrayAdapter<ServiceWeight> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        if (position == 9) {
+        if (position == (isLager ? 11 : 9)) {
             holder.itemPhoto.setImageResource(R.mipmap.more_service);
             holder.itemName.setText("更多服务");
             holder.itemLayout.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +76,6 @@ public class HomeServiceAdapter extends ArrayAdapter<ServiceWeight> {
                 }
             });
         } else {
-
             ServiceWeight serviceWeight = getItem(position);
             VolleyTo volleyTo = new VolleyTo();
             volleyTo.setUrl("service_info")
@@ -82,6 +83,7 @@ public class HomeServiceAdapter extends ArrayAdapter<ServiceWeight> {
                     .setVolleyLo(new VolleyLo() {
                         @Override
                         public void onResponse(JSONObject jsonObject) {
+
                             final ServiceInfo service = new Gson().fromJson(jsonObject.optJSONArray(Util.Rows).optJSONObject(0).toString(), ServiceInfo.class);
                             holder.itemName.setText(service.getServiceName());
                             holder.itemLayout.setOnClickListener(new View.OnClickListener() {

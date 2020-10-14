@@ -59,7 +59,7 @@ public class NewDetailsActivity extends AppCompatActivity {
                     }
                 }).start();
         tvMsg.setText(fpNews.getNewscontent());
-        //tvLook.setText("查看人数："+fpNews.getReadnum());
+        tvLook.setText("发布者："+fpNews.getNewsreporter()+"\n日期："+fpNews.getReporttime());
         title1.setText("查看人数：" + fpNews.getReadnum());
 
     }

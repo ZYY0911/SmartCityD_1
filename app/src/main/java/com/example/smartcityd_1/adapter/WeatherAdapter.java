@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.smartcityd_1.R;
@@ -21,6 +22,7 @@ import androidx.annotation.Nullable;
  */
 public class WeatherAdapter extends ArrayAdapter<Weather> {
 
+
     public WeatherAdapter(@NonNull Context context, @NonNull List<Weather> objects) {
         super(context, 0, objects);
     }
@@ -28,11 +30,51 @@ public class WeatherAdapter extends ArrayAdapter<Weather> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_text, parent, false);
-        TextView itemText = convertView.findViewById(R.id.item_text);
+        ViewHolder holder;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.weather_item, parent, false);
+            holder = new ViewHolder();
+            holder.itemRl = convertView.findViewById(R.id.item_rl);
+            holder.itemImage = convertView.findViewById(R.id.item_image);
+            holder.itemWd = convertView.findViewById(R.id.item_wd);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
         Weather weather = getItem(position);
-        itemText.setText("天气情况：" + weather.getWeather() + "      气温:" + weather.getTemperature() + "℃\n日期："+weather.getDate());
+        holder.itemRl.setText(weather.getDate());
+        String arr[] = weather.getTemperature().split("~");
+        holder.itemWd.setText(arr[0] + "℃/" + arr[1] + "℃");
+        switch (weather.getWeather()) {
+            case "晴":
+                holder.itemImage.setImageResource(R.mipmap.qing);
+                break;
+            case "阴":
+                holder.itemImage.setImageResource(R.mipmap.yintian);
+                break;
+            case "多云":
+                holder.itemImage.setImageResource(R.mipmap.duoyun);
+                break;
+            case "雨":
+                holder.itemImage.setImageResource(R.mipmap.yu);
+                break;
+            case "霾":
+                holder.itemImage.setImageResource(R.mipmap.wumai);
+                break;
+            case "雪":
+                holder.itemImage.setImageResource(R.mipmap.xue);
+                break;
+
+        }
+
         return convertView;
+    }
+
+    static class ViewHolder {
+
+        private TextView itemRl;
+        private ImageView itemImage;
+        private TextView itemWd;
     }
 
     private void initView() {

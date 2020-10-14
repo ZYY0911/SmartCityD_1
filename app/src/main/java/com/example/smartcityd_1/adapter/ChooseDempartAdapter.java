@@ -32,10 +32,9 @@ public class ChooseDempartAdapter extends ArrayAdapter<HospitalDemp> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_text, parent, false);
             TextView itemText = convertView.findViewById(R.id.item_text);
-            itemText.setEllipsize(TextUtils.TruncateAt.END);
-            itemText.setMaxLines(2);
+            itemText.setPadding(0,10,0,10);
             HospitalDemp hospitalDemp = getItem(position);
-            itemText.setText(hospitalDemp.getDeptName() + "\n" + hospitalDemp.getDesc());
+            itemText.setText(hospitalDemp.getDeptName());
         }
         return convertView;
     }

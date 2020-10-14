@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/large_layout">
 
 
     <ScrollView
@@ -31,7 +32,7 @@
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:horizontalSpacing="10dp"
-                android:numColumns="5"
+                android:numColumns="6"
                 android:padding="5dp"
                 android:verticalSpacing="30dp" />
 
@@ -51,7 +52,7 @@
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:horizontalSpacing="20dp"
-                android:numColumns="2"
+                android:numColumns="4"
                 android:padding="5dp"
                 android:verticalSpacing="20dp" />
 

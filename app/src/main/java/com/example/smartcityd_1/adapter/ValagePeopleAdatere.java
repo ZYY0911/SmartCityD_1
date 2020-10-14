@@ -29,6 +29,7 @@ public class ValagePeopleAdatere extends ArrayAdapter<ValavgePeople> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_text, parent, false);
         TextView itemText = convertView.findViewById(R.id.item_text);
+        itemText.setPadding(0,10,0,10);
         itemText.setText(getItem(position).getName());
         return convertView;
     }

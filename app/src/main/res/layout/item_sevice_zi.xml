@@ -13,6 +13,6 @@
         android:horizontalSpacing="10dp"
         android:numColumns="5"
         android:padding="5dp"
-        android:verticalSpacing="10dp" />
+        android:verticalSpacing="20dp" />
 
 </LinearLayout>

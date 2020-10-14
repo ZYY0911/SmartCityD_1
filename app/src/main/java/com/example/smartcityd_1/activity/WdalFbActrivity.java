@@ -45,6 +45,7 @@ public class WdalFbActrivity extends AppCompatActivity {
     private PzAdapter adapter;
 
     private String arr[] = {"a", "b", "c"};
+    private EditText etContent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,6 +86,7 @@ public class WdalFbActrivity extends AppCompatActivity {
                         .setJsonObject("casepicture", "a.jpg")
                         .setJsonObject("reporttime", Util.simpleDate("yyyy-MM-dd", new Date()))
                         .setJsonObject("userid", appClient.getUserId(AppClient.username))
+                        .setJsonObject("caseContent",etContent.getText().toString())
                         .setVolleyLo(new VolleyLo() {
                             @Override
                             public void onResponse(JSONObject jsonObject) {
@@ -128,5 +130,6 @@ public class WdalFbActrivity extends AppCompatActivity {
         etDe = findViewById(R.id.et_de);
         girdView = findViewById(R.id.gird_view);
         btSave = findViewById(R.id.bt_save);
+        etContent = findViewById(R.id.et_content);
     }
 }

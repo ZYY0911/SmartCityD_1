@@ -2,6 +2,8 @@ package com.example.smartcityd_1.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.example.smartcityd_1.R;
@@ -24,7 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 /**
@@ -34,6 +35,9 @@ import androidx.viewpager.widget.ViewPager;
 public class ValageActivity extends AppCompatActivity {
     private List<Fragment> fragments;
     private ViewPager viewPager;
+    private ImageView itemChange;
+    private TextView title;
+    private TextView title1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +45,13 @@ public class ValageActivity extends AppCompatActivity {
         setContentView(R.layout.valage_layout);
         initView();
         fragments = new ArrayList<>();
+        title.setText("村情村貌");
+        itemChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         setVoley();
     }
 
@@ -85,5 +96,8 @@ public class ValageActivity extends AppCompatActivity {
 
     private void initView() {
         viewPager = findViewById(R.id.view_pager);
+        itemChange = findViewById(R.id.item_change);
+        title = findViewById(R.id.title);
+        title1 = findViewById(R.id.title1);
     }
 }

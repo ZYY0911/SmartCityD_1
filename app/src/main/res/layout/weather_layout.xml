@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,9 +69,9 @@
             <com.example.smartcityd_1.util.MyGirdView
                 android:id="@+id/gird_weather"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:horizontalSpacing="10dp"
-                android:verticalSpacing="20dp"
-                android:layout_height="wrap_content" />
+                android:verticalSpacing="20dp" />
 
 
             <TextView
@@ -83,54 +84,17 @@
                 android:textSize="23sp" />
 
 
-            <TextView
-                android:id="@+id/tv_gm"
+            <com.example.smartcityd_1.util.MyGirdView
+                android:id="@+id/gird_snese"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="30dp"
-                android:text="感冒："
-                android:textColor="#333"
-                android:textSize="20sp" />
+                android:horizontalSpacing="10dp"
+                android:numColumns="2"
+                android:verticalSpacing="20dp" />
 
-            <TextView
-                android:id="@+id/tv_cy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="30dp"
-                android:text="天气："
-                android:textColor="#333"
-                android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_yd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="30dp"
-                android:text="天气："
-                android:textColor="#333"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tv_kqks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="30dp"
-                android:text="天气："
-                android:textColor="#333"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/tv_zwx"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="30dp"
-                android:text="天气："
-                android:textColor="#333"
-                android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
 

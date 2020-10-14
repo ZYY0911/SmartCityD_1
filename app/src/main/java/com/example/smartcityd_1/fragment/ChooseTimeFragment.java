@@ -1,5 +1,7 @@
 package com.example.smartcityd_1.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -97,8 +99,10 @@ public class ChooseTimeFragment extends Fragment {
         tvZj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvZj.setTextColor(Color.RED);
+                tvZj.setTextColor(getResources().getColor(R.color.colorPrimary));
                 tvPt.setTextColor(Color.BLACK);
+                tvZj.setBackgroundResource(R.drawable.text_line);
+                tvPt.setBackgroundResource(R.drawable.text_no_line);
                 tvZjDate.setVisibility(View.VISIBLE);
                 layoutPt.setVisibility(View.GONE);
             }
@@ -107,7 +111,9 @@ public class ChooseTimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 tvZj.setTextColor(Color.BLACK);
-                tvPt.setTextColor(Color.RED);
+                tvPt.setTextColor(getResources().getColor(R.color.colorPrimary));
+                tvPt.setBackgroundResource(R.drawable.text_line);
+                tvZj.setBackgroundResource(R.drawable.text_no_line);
                 tvZjDate.setVisibility(View.GONE);
                 layoutPt.setVisibility(View.VISIBLE);
             }
@@ -136,12 +142,22 @@ public class ChooseTimeFragment extends Fragment {
                             @Override
                             public void onClick(int position, String name) {
                                 dutByDempart = dutByDemparts.get(position);
-                                appHomeActivity.switchFragemnt(appHomeActivity.map.get("挂号"));
-//                               Intent intent = new Intent(GhYuActivity.this, YyghSuccsssFulActivity.class);
-//                               intent.putExtra("carInfos", carInfo);
-//                               intent.putExtra("doctor", dutByDemparts.get(index));
-//                               intent.putExtra("ks", depList.getDeptName());
-//                               startActivity(intent);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setTitle("提示\n预约后不可修改!");
+                                builder.setMessage("您确定要预约" + name + "\n" + dutByDempart.getTime() + "");
+                                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        appHomeActivity.switchFragemnt(appHomeActivity.map.get("挂号"));
+                                    }
+                                });
+                                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                                builder.show();
                             }
                         });
                     }

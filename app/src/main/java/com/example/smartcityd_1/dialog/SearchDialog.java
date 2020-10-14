@@ -1,5 +1,6 @@
 package com.example.smartcityd_1.dialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,9 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.example.smartcityd_1.R;
+import com.example.smartcityd_1.activity.AppHomeActivity;
+import com.example.smartcityd_1.activity.ReadNewActivity;
+import com.example.smartcityd_1.activity.UrlService;
 import com.example.smartcityd_1.adapter.AllServiceItemAdapter;
 import com.example.smartcityd_1.bean.ServiceInfo;
 import com.example.smartcityd_1.net.VolleyLo;
@@ -39,9 +43,13 @@ public class SearchDialog extends DialogFragment {
     private MyGirdView searchGird;
     private TextView tvFinish;
 
-    public SearchDialog(String msg) {
+    private AppHomeActivity appHomeActivity;
+
+    public SearchDialog(String msg, AppHomeActivity appHomeActivity) {
         this.msg = msg;
+        this.appHomeActivity = appHomeActivity;
     }
+
 
     @Nullable
     @Override
@@ -132,7 +140,21 @@ public class SearchDialog extends DialogFragment {
         allServiceItemAdapter.setOnClickItem(new OnClickItem() {
             @Override
             public void onClick(int position, String name) {
-
+                if (name.equals("新闻中心")) {
+                    Intent intent = new Intent(getActivity(), ReadNewActivity.class);
+                    intent.putExtra("info", "新闻");
+                    startActivity(intent);
+                } else if (name.equals("实时天气")) {
+                    appHomeActivity.switchFragemnt(appHomeActivity.map.get("实时天气"));
+                } else if (name.equals("门诊预约")) {
+                    appHomeActivity.switchFragemnt(appHomeActivity.map.get("门诊预约"));
+                } else {
+                    Intent intent = new Intent(getActivity(), UrlService.class);
+                    intent.putExtra("info", position);
+                    intent.putExtra("name", name);
+                    startActivity(intent);
+                }
+                getDialog().dismiss();
             }
         });
     }

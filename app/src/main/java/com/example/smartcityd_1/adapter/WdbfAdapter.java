@@ -77,11 +77,12 @@ public class WdbfAdapter extends ArrayAdapter<Wdbf> {
                 }).start();
         VolleyTo volleyTo1 = new VolleyTo();
         volleyTo1.setUrl("fpApplyStateById")
+                .setJsonObject("stateid",wdbf.getApplystate())
                 .setVolleyLo(new VolleyLo() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
                         JSONObject jsonObject1 = jsonObject.optJSONArray(Util.Rows).optJSONObject(0);
-                        holder.itemMsg.setText("申请状态：" + jsonObject1.optString("statename"));
+                        holder.itemMsg.setText("申请状态：" + jsonObject1.optString("statename")+"   开始时间：" + wdbf.getStarttime());
                     }
 
                     @Override
@@ -89,7 +90,6 @@ public class WdbfAdapter extends ArrayAdapter<Wdbf> {
 
                     }
                 }).start();
-        holder.itemMsg.setText("开始时间：" + wdbf.getStarttime() );
         return convertView;
     }
 

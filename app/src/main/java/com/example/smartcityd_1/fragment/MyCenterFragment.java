@@ -109,7 +109,7 @@ public class MyCenterFragment extends Fragment {
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),GlideActivity.class));
+                startActivity(new Intent(getActivity(), AppHomeActivity.class));
                 appHomeActivity.finish();
             }
         });

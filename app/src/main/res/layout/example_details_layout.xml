@@ -38,6 +38,15 @@
             android:textSize="23sp" />
     </ScrollView>
 
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:textColor="#666"
+        android:textSize="17sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -55,12 +64,12 @@
             android:textSize="20sp" />
 
         <Button
+            android:id="@+id/bt_submit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/bg_main_style"
-            android:id="@+id/bt_submit"
             android:text="点赞"
             android:textColor="#fff" />
 

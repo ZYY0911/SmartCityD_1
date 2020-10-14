@@ -10,11 +10,13 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.example.smartcityd_1.R;
 import com.example.smartcityd_1.bean.Example;
+import com.example.smartcityd_1.bean.UserInfo;
 import com.example.smartcityd_1.net.VolleyImage;
 import com.example.smartcityd_1.net.VolleyLo;
 import com.example.smartcityd_1.net.VolleyLoImage;
 import com.example.smartcityd_1.net.VolleyTo;
 import com.example.smartcityd_1.util.Util;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -36,6 +38,7 @@ public class ExampleDetailsActivity extends AppCompatActivity {
     private Button btSubmit;
 
     private Example example;
+    private TextView tvTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,8 +68,28 @@ public class ExampleDetailsActivity extends AppCompatActivity {
 
                     }
                 }).start();
-        tvMsg.setText(example.getCasetitle() + "\n发布日期" + example.getReporttime());
+        tvTitle.setText(example.getCasetitle());
+        VolleyTo volleyTo = new VolleyTo();
+        volleyTo.setUrl("getUserInfo")
+                .setJsonObject("userid", example.getUserid())
+                .setVolleyLo(new VolleyLo() {
+                    @Override
+                    public void onResponse(JSONObject jsonObject) {
+                        UserInfo userInfo = new Gson().fromJson(jsonObject.optJSONArray(Util.Rows).optJSONObject(0).toString()
+                                , UserInfo.class);
+
+                        tvMsg.setText(example.getCaseContent() + "\n发布者：" + userInfo.getName());
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+                }).start();
+
         tvLook.setText("点赞人数：" + example.getThumbup());
+        tvTime.setText("发布日期" + example.getReporttime());
+
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,10 +100,9 @@ public class ExampleDetailsActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject jsonObject) {
                                 if (jsonObject.optString("RESULT").equals("S")) {
-
-                                    tvLook.setText("点赞人数：" + (example.getThumbup()+1));
+                                    tvLook.setText("点赞人数：" + (example.getThumbup() + 1));
                                     Util.showToast("点赞成功", ExampleDetailsActivity.this);
-
+                                } else {
                                     Util.showToast("点赞失败", ExampleDetailsActivity.this);
                                 }
 
@@ -105,5 +127,6 @@ public class ExampleDetailsActivity extends AppCompatActivity {
         tvMsg = findViewById(R.id.tv_msg);
         tvLook = findViewById(R.id.tv_look);
         btSubmit = findViewById(R.id.bt_submit);
+        tvTime = findViewById(R.id.tv_time);
     }
 }

@@ -74,7 +74,6 @@ public class AppHomeActivity extends AppCompatActivity {
         map.put("就诊时间", ChooseTimeFragment.newInstance(this));
         map.put("挂号", GhFinshFragment.newInstance(this));
 
-
         map.put("精准扶贫", JzfpFragment.newInstance(this));
         map.put("新闻", NewsFragment_Fp.newInstance(this));
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

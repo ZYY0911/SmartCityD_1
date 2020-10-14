@@ -1,6 +1,7 @@
 package com.example.smartcityd_1.activity;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.android.volley.VolleyError;
 import com.example.smartcityd_1.AppClient;
@@ -38,6 +40,8 @@ public class SubmitInfosActivity extends AppCompatActivity {
     private EditText etMsg;
     private Button btSave;
     private ValavgePeople valavgePeople;
+    private TextView tvStartTime;
+    private TextView tvEndTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,8 +57,10 @@ public class SubmitInfosActivity extends AppCompatActivity {
                 finish();
             }
         });
-        showDiaog(tvStart, layoutStart);
-        showDiaog(tvEnd, layoutEnd);
+        showDateDiaog(tvStart);
+        showDateDiaog(tvEnd);
+        showTiDialog(tvStartTime);
+        showTiDialog(tvEndTime);
         final AppClient appClient = (AppClient) getApplication();
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +69,8 @@ public class SubmitInfosActivity extends AppCompatActivity {
                 volleyTo.setUrl("fpInterviewPlan")
                         //{"villiagerid":"2","starttime":"2020-8-1","endtime":"2020-9-1","intent":"对口帮扶","userid":2}
                         .setJsonObject("villiagerid", valavgePeople.getVilliagerid())
-                        .setJsonObject("starttime", tvStart.getText())
-                        .setJsonObject("endtime", tvEnd.getText())
+                        .setJsonObject("starttime", tvStart.getText().toString() + " " + tvStartTime.getText().toString())
+                        .setJsonObject("endtime", tvEnd.getText().toString() + "-" + tvEndTime.getText().toString())
                         .setJsonObject("intent", etMsg.getText().toString())
                         .setJsonObject("userid", appClient.getUserId(AppClient.username))
                         .setVolleyLo(new VolleyLo() {
@@ -90,8 +96,8 @@ public class SubmitInfosActivity extends AppCompatActivity {
 
     }
 
-    private void showDiaog(final TextView textView, LinearLayout linearLayout) {
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+    private void showDateDiaog(final TextView textView) {
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(SubmitInfosActivity.this
@@ -106,6 +112,22 @@ public class SubmitInfosActivity extends AppCompatActivity {
         });
     }
 
+    private void showTiDialog(final TextView textView) {
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(SubmitInfosActivity.this
+                        , new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        textView.setText(hourOfDay + ":" + minute);
+                    }
+                }, 9, 14, true);
+                timePickerDialog.show();
+            }
+        });
+    }
+
     private void initView() {
         itemChange = findViewById(R.id.item_change);
         title = findViewById(R.id.title);
@@ -116,5 +138,7 @@ public class SubmitInfosActivity extends AppCompatActivity {
         tvEnd = findViewById(R.id.tv_end);
         etMsg = findViewById(R.id.et_msg);
         btSave = findViewById(R.id.bt_save);
+        tvStartTime = findViewById(R.id.tv_start_time);
+        tvEndTime = findViewById(R.id.tv_end_time);
     }
 }

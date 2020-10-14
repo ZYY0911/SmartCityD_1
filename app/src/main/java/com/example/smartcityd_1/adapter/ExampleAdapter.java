@@ -52,7 +52,7 @@ public class ExampleAdapter extends ArrayAdapter<Example> {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Example example = getItem(position);
+        final Example example = getItem(position);
         // {
         //            "caseid": 1,
         //            "casetitle": "大爱湖北行，千里送爱心",
@@ -72,7 +72,9 @@ public class ExampleAdapter extends ArrayAdapter<Example> {
                     public void onResponse(JSONObject jsonObject) {
                         UserInfo userInfo = new Gson().fromJson(jsonObject.optJSONArray(Util.Rows).optJSONObject(0).toString()
                                 , UserInfo.class);
-                        holder.itemContext.setText("主要参与人：" + userInfo.getName());
+                        holder.itemMsg.setText("参与人：" + userInfo.getName()  +
+                                " 查看：" + example.getReadnum() + " 点赞：" + example.getThumbup()+"\n"
+                                +"发布日期：" + example.getReporttime() );
                     }
 
                     @Override
@@ -80,9 +82,9 @@ public class ExampleAdapter extends ArrayAdapter<Example> {
 
                     }
                 }).start();
-        holder.itemContext.setText("发布日期：" + example.getReporttime());
-        holder.itemMsg.setText("查看人数：" + example.getReadnum() + "\n点赞人数：" + example.getThumbup());
 
+
+        holder.itemContext.setText(example.getCaseContent());
         VolleyImage volleyImage = new VolleyImage();
         volleyImage.setUrl(example.getCasepicture())
                 .setVolleyLoImage(new VolleyLoImage() {

@@ -6,15 +6,16 @@ package com.example.smartcityd_1.bean;
  */
 public class Weather  {
 
+
     /**
-     * date : 2020-10-12
-     * weather : 霾
-     * temperature : 11
+     * date : 2020-10-13
+     * weather : 小雨
+     * temperature : 34~39
      */
 
     private String date;
     private String weather;
-    private int temperature;
+    private String temperature;
 
     public String getDate() {
         return date;
@@ -32,11 +33,11 @@ public class Weather  {
         this.weather = weather;
     }
 
-    public int getTemperature() {
+    public String getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(int temperature) {
+    public void setTemperature(String temperature) {
         this.temperature = temperature;
     }
 }

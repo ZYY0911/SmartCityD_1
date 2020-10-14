@@ -78,6 +78,9 @@ public class MotifPwd extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
+            etNewPwd.setText("");
+            etNewPwd2.setText("");
+            etPwd.setText("");
             setView();
         }
         super.onHiddenChanged(hidden);

@@ -66,6 +66,7 @@ public class AllServiceAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_text, parent, false);
         TextView itemText = convertView.findViewById(R.id.item_text);
+        itemText.setPadding(0,10,0,10);
         itemText.setText(strings.get(groupPosition));
         return convertView;
     }

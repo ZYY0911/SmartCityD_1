@@ -34,6 +34,7 @@ public class AppClient extends Application {
     public static final String PORT = "port";
     private static RequestQueue requestQueue;
     public static final String username = "abc";
+    public static final String IsFirst = "isFirst";
 
     @Override
     public void onCreate() {

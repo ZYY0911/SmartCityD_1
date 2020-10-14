@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.example.smartcityd_1.R;
 import com.example.smartcityd_1.adapter.ExampleAdapter;
 import com.example.smartcityd_1.bean.Example;
+import com.example.smartcityd_1.bean.FpNews;
 import com.example.smartcityd_1.net.VolleyLo;
 import com.example.smartcityd_1.net.VolleyTo;
 import com.example.smartcityd_1.util.Util;
@@ -20,6 +21,11 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -64,6 +70,23 @@ public class FpEamplActivity extends AppCompatActivity {
                         examples = new Gson().fromJson(jsonObject.optJSONArray(Util.Rows).toString()
                                 , new TypeToken<List<Example>>() {
                                 }.getType());
+                        Collections.sort(examples, new Comparator<Example>() {
+                            @Override
+                            public int compare(Example o1, Example o2) {
+                                //2020-04-03 00:00:00
+                                Date date = null;
+                                Date date1 = null;
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                try {
+                                    date = format.parse(o1.getReporttime());
+                                    date1 = format.parse(o2.getReporttime());
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                return date1.compareTo(date);
+                            }
+                        });
                         listView.setAdapter(new ExampleAdapter(FpEamplActivity.this, examples));
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override

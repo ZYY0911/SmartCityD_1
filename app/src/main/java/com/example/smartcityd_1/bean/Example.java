@@ -8,6 +8,7 @@ import java.io.Serializable;
  */
 public class Example  implements Serializable {
 
+
     /**
      * caseid : 1
      * casetitle : 大爱湖北行，千里送爱心
@@ -15,8 +16,9 @@ public class Example  implements Serializable {
      * helperr : 严义军
      * reporttime : 2020-10-02 00:00:00
      * readnum : 9000
-     * thumbup : 2003
+     * thumbup : 2006
      * userid : 1
+     * caseContent : 人民网银川10月13日电 记者获悉，宁夏原州区金融扶贫案例于近期作为联合国中国扶贫经典案例在联合国网站展示，并成为联合国对发展中国家扶贫开发的课程。
      */
 
     private int caseid;
@@ -27,6 +29,7 @@ public class Example  implements Serializable {
     private int readnum;
     private int thumbup;
     private int userid;
+    private String caseContent;
 
     public int getCaseid() {
         return caseid;
@@ -90,5 +93,13 @@ public class Example  implements Serializable {
 
     public void setUserid(int userid) {
         this.userid = userid;
+    }
+
+    public String getCaseContent() {
+        return caseContent;
+    }
+
+    public void setCaseContent(String caseContent) {
+        this.caseContent = caseContent;
     }
 }
