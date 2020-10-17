@@ -87,14 +87,14 @@ public class TJFKFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (!TextUtils.isEmpty(s)) {
-                    String leangh = s.toString();
-                    if (leangh.length() >= 151) {
-                        Util.showToast("只能输入150字", getActivity());
-                        etMsg.setText(leangh.substring(0, 150));
-                        etMsg.setSelection(150);
-                        return;
-                    }
-                    tvNum.setText(leangh.length() + "/150字");
+                        String leangh = s.toString();
+                        if (leangh.length() >= 151) {
+                            Util.showToast("只能输入150字", getActivity());
+                            etMsg.setText(leangh.substring(0, 150));
+                            etMsg.setSelection(150);
+                            return;
+                        }
+                        tvNum.setText(leangh.length() + "/150字");
                 }
             }
         });

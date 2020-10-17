@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.AppHomeActivity" />
+        <activity android:name=".activity.AppHomeActivity">
+
+        </activity>
         <activity android:name=".activity.SearchNewsActivity" />
         <activity android:name=".activity.OrderDetailsActivity" />
         <activity android:name=".activity.MotifImage" />
